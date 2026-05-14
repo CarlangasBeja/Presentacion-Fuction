@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Functions en Bases de Datos</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<header>
+    <h1>⚡ FUNCTIONS EN BASES DE DATOS</h1>
+    <p>Teoría completa + ejemplos interactivos</p>
+</header>
+
+<section class="card glow">
+    <h2>📌 ¿Qué es una FUNCTION?</h2>
+    <p>
+        Una <b>FUNCTION</b> en bases de datos es un bloque de código SQL que recibe datos, realiza cálculos
+        y <b>SIEMPRE devuelve un valor</b>.
+    </p>
+</section>
+
+<section class="card glow">
+    <h2>🎯 ¿Para qué se usa?</h2>
+    <ul>
+        <li>💰 Cálculos automáticos (descuentos, IVA)</li>
+        <li>📊 Promedios y estadísticas</li>
+        <li>🧮 Transformación de datos</li>
+        <li>⚙️ Reutilizar lógica SQL</li>
+    </ul>
+</section>
+
+<section class="card glow">
+    <h2>⚡ Importancia</h2>
+    <p>
+        Permiten evitar repetir código SQL y hacen las consultas más eficientes y limpias.
+        Son clave en sistemas bancarios, tiendas online y sistemas académicos.
+    </p>
+</section>
+
+<section class="card glow">
+    <h2>👍 Ventajas</h2>
+    <ul>
+        <li>✔ Reutilización de código</li>
+        <li>✔ Automatización de cálculos</li>
+        <li>✔ Mayor organización</li>
+    </ul>
+
+    <h2>👎 Desventajas</h2>
+    <ul>
+        <li>✖ No modifican datos directamente</li>
+        <li>✖ Pueden afectar rendimiento si son complejas</li>
+    </ul>
+</section>
+
+<section class="card glow">
+    <h2>⚔️ FUNCTION vs PROCEDURE</h2>
+
+<table>
+<tr>
+<th>FUNCTION</th>
+<th>PROCEDURE</th>
+</tr>
+<tr>
+<td>Devuelve un valor</td>
+<td>No siempre devuelve valor</td>
+</tr>
+<tr>
+<td>Se usa en SELECT</td>
+<td>No se usa en SELECT</td>
+</tr>
+<tr>
+<td>Cálculos</td>
+<td>Acciones (INSERT/UPDATE)</td>
+</tr>
+</table>
+</section>
+
+<section class="card glow">
+    <h2>💡 Ejemplo 1: Descuento</h2>
+
+<pre>
+CREATE FUNCTION descuento(precio DECIMAL)
+RETURNS DECIMAL
+BEGIN
+    RETURN precio - (precio * 0.10);
+END;
+</pre>
+
+<button onclick="ejemplo1()">🔍 Ver paso a paso</button>
+<p id="ex1" class="output"></p>
+</section>
+
+<section class="card glow">
+    <h2>💡 Ejemplo 2: IVA</h2>
+
+<pre>
+CREATE FUNCTION iva(precio DECIMAL)
+RETURNS DECIMAL
+BEGIN
+    RETURN precio + (precio * 0.12);
+END;
+</pre>
+
+<button onclick="ejemplo2()">🔍 Ver paso a paso</button>
+<p id="ex2" class="output"></p>
+</section>
+
+<section class="card glow center">
+    <h2>🚀 Ir al sistema de ejercicios</h2>
+    <button onclick="irEjercicio()">Entrar</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

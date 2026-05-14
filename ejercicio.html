@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>BD Autos</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<header>
+<h1>🚗 SISTEMA DE VENTAS DE AUTOS</h1>
+<p class="subtitle">Simulación de Functions y consultas SQL</p>
+</header>
+
+<section class="card glow">
+<h2>🗄️ Crear tablas</h2>
+<pre>
+CREATE TABLE CLIENTE(
+    id_cliente INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    ciudad VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE AUTO(
+    id_auto INT PRIMARY KEY,
+    marca VARCHAR(50) NOT NULL,
+    modelo VARCHAR(50) NOT NULL,
+    precio DECIMAL(10,2) CHECK (precio > 0)
+);
+
+CREATE TABLE VENTA(
+    id_venta INT PRIMARY KEY,
+    id_cliente INT,
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
+);
+
+CREATE TABLE DETALLE_VENTA(
+    id_detalle INT PRIMARY KEY,
+    id_venta INT,
+    id_auto INT,
+    cantidad INT CHECK (cantidad > 0),
+    FOREIGN KEY (id_venta) REFERENCES VENTA(id_venta),
+    FOREIGN KEY (id_auto) REFERENCES AUTO(id_auto)
+);
+</pre>
+</section>
+
+<section class="card glow">
+<h2>📥 Inserts</h2>
+<pre>
+INSERT INTO CLIENTE VALUES (1,'Carlos','Ambato');
+INSERT INTO CLIENTE VALUES (2,'Ana','Quito');
+INSERT INTO CLIENTE VALUES (3,'Luis','Cuenca');
+INSERT INTO CLIENTE VALUES (4,'Maria','Guayaquil');
+
+INSERT INTO AUTO VALUES (1,'Toyota','Corolla',20000);
+INSERT INTO AUTO VALUES (2,'Chevrolet','Spark',12000);
+INSERT INTO AUTO VALUES (3,'Kia','Rio',15000);
+INSERT INTO AUTO VALUES (4,'Hyundai','Tucson',30000);
+
+INSERT INTO VENTA VALUES (1,1);
+INSERT INTO VENTA VALUES (2,2);
+INSERT INTO VENTA VALUES (3,3);
+INSERT INTO VENTA VALUES (4,4);
+
+INSERT INTO DETALLE_VENTA VALUES (1,1,1,1);
+INSERT INTO DETALLE_VENTA VALUES (2,2,2,2);
+INSERT INTO DETALLE_VENTA VALUES (3,3,3,1);
+INSERT INTO DETALLE_VENTA VALUES (4,4,4,1);
+</pre>
+</section>
+
+<section class="card glow">
+<h2>⚙️ Function: descuento</h2>
+<pre>
+CREATE FUNCTION descuento(precio DECIMAL)
+RETURNS DECIMAL
+BEGIN
+RETURN precio - (precio * 0.10);
+END;
+</pre>
+</section>
+
+<section class="card glow">
+<h2>🧪 Ejercicio 1</h2>
+<pre>
+SELECT marca, descuento(precio) FROM AUTO;
+</pre>
+<button onclick="res1()">Explicación</button>
+<p id="r1" class="output"></p>
+<button onclick="runQuery(1)">▶ Ejecutar SQL</button>
+<div id="console1" class="console"></div>
+<div id="table1"></div>
+</section>
+
+<section class="card glow">
+<h2>⚙️ Function: total_venta</h2>
+<pre>
+CREATE FUNCTION total_venta(precio DECIMAL, cantidad INT)
+RETURNS DECIMAL
+BEGIN
+RETURN precio * cantidad;
+END;
+</pre>
+</section>
+
+<section class="card glow">
+<h2>🧪 Ejercicio 2</h2>
+<pre>
+SELECT marca, total_venta(precio,cantidad)
+FROM AUTO a JOIN DETALLE_VENTA dv
+ON a.id_auto=dv.id_auto;
+</pre>
+<button onclick="res2()">Explicación</button>
+<p id="r2" class="output"></p>
+<button onclick="runQuery(2)">▶ Ejecutar SQL</button>
+<div id="console2" class="console"></div>
+<div id="table2"></div>
+</section>
+
+<section class="card glow center">
+<h2>🧠 Ejercicios Propuestos</h2>
+<button onclick="toggleEj('ej5')">📂 Mostrar Ejercicio 3</button>
+<button onclick="toggleEj('ej6')">📂 Mostrar Ejercicio 4</button>
+</section>
+
+<section id="ej5" class="card glow" style="display:none;">
+<h2>🧠 Ejercicio 3</h2>
+<p>Mostrar total gastado por cliente con descuento</p>
+<button onclick="pista5()">💡 Pista</button>
+<button onclick="respuesta5()">📖 Respuesta</button>
+<p id="p5" class="output"></p>
+<pre id="r5"></pre>
+</section>
+
+<section id="ej6" class="card glow" style="display:none;">
+<h2>🧠 Ejercicio 4</h2>
+<p>Calcular total de venta con IVA</p>
+<button onclick="pista6()">💡 Pista</button>
+<button onclick="respuesta6()">📖 Respuesta</button>
+<p id="p6" class="output"></p>
+<pre id="r6"></pre>
+</section>
+
+<div class="center">
+<button onclick="volver()">⬅ Volver</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
